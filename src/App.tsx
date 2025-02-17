@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Container from '../src/components/layout/Container';
+import Grid from '../src/components/layout/Grid';
+import { gridItems, layouts } from '../config/GridLayout';
+import * as React from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+interface GridItem {
+  i: string;
+  component: React.ElementType;
 }
 
-export default App
+export default function Home() {
+  return (
+    <>
+      <Container as="header" className="flex items-center justify-between py-0">
+        <h1 className="hidden">Dominik Glätzle</h1>
+      </Container>
+      <main className="py-8">
+        <Grid layouts={layouts}>
+          {gridItems.map((item: GridItem) => {
+            const Component = item.component;
+            return (
+              <div key={item.i}>
+                <Component />
+              </div>
+            );
+          })}
+        </Grid>
+      </main>
+    </>
+  );
+}
